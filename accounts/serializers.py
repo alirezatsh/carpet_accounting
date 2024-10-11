@@ -3,6 +3,7 @@ from rest_framework import serializers
 from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
 from rest_framework.exceptions import ValidationError as DRFValidationError
+from .models import Section, SectionUser , Workers
 
 
 class RegisterSerializer(serializers.ModelSerializer):
@@ -29,7 +30,53 @@ class RegisterSerializer(serializers.ModelSerializer):
         return user
 
 
-class UserSerializer(serializers.ModelSerializer):
+class UserInfoSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'username', 'email']
+        fields = ['first_name', 'last_name']
+
+
+class UserSerializer(serializers.ModelSerializer):
+    user_info = UserInfoSerializer(source='*')
+
+    class Meta:
+        model = User
+        fields = ['id', 'username', 'email', 'user_info']
+
+
+class SectionUserSerializer(serializers.ModelSerializer):
+    user = UserSerializer()
+
+    class Meta:
+        model = SectionUser
+        fields = ['user']
+
+
+class SectionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Section
+        fields = '__all__'
+    
+class WorkerSerializer(serializers.ModelSerializer):
+    section = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Workers
+        fields = ['id', 'name', 'last_name', 'section']
+
+    def get_section(self, obj):
+        # پیدا کردن بخش مرتبط با هر کارگر
+        section_user = SectionUser.objects.filter(user=obj).first()
+        if section_user:
+            return section_user.section.name  
+        return None  
+    
+    
+    
+class WorkerSectionSerializer(serializers.ModelSerializer):
+    section = serializers.CharField(source='sectionuser.section.name', read_only=True)
+
+    class Meta:
+        model = Workers
+        fields = ['id', 'name', 'last_name', 'section']
+
