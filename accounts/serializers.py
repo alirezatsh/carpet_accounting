@@ -141,7 +141,6 @@ class WorkerSerializer(serializers.ModelSerializer):
 
 
     def get_section(self, obj):
-        # پیدا کردن بخش مرتبط با هر کارگر
         section_user = SectionUser.objects.filter(user=obj).first()
         if section_user:
             return section_user.section.name  
@@ -160,7 +159,7 @@ class WorkerSectionSerializer(serializers.ModelSerializer):
         worker = Workers.objects.create(**validated_data)
         if section:
             worker.section = section
-            worker.save()  # ذخیره نهایی بخش کارگر
+            worker.save()  
         return worker
 
     def update(self, instance, validated_data):
@@ -168,7 +167,7 @@ class WorkerSectionSerializer(serializers.ModelSerializer):
         instance.name = validated_data.get('name', instance.name)
         instance.last_name = validated_data.get('last_name', instance.last_name)
         if section:
-            instance.section = section  # بخش جدید را به کارگر نسبت می‌دهیم
+            instance.section = section  
         instance.save()
         return instance
 

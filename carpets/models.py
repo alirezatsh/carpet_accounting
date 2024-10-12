@@ -80,15 +80,12 @@ class Carpet(models.Model):
     shirazeh = models.ForeignKey(Workers, on_delete=models.CASCADE, verbose_name='شیرازه', related_name='shirazeh_carpets', null=True, blank=True)
     cheleh = models.ForeignKey(Workers, on_delete=models.CASCADE, verbose_name='چله', related_name='cheleh_carpets', null=True, blank=True)
     gereh = models.ForeignKey(Workers, on_delete=models.CASCADE, verbose_name='گره', related_name='gereh_carpets', null=True, blank=True)
-    
-    # حذف default=None از فیلدهای DateTimeField
     shirazehkhoroug = models.DateTimeField(null=True, blank=True)
     chelehkhoroug = models.DateTimeField(null=True, blank=True)
     grehkhoroug = models.DateTimeField(null=True, blank=True)
     shirazehvouroud = models.DateTimeField(null=True, blank=True)
     chellehvouroud = models.DateTimeField(null=True, blank=True)
     gerehvouroud = models.DateTimeField(null=True, blank=True)
-    
     ersalshodeh = models.BooleanField(default=False)
     id_name = models.IntegerField(default=1)
 
