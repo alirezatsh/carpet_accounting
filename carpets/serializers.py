@@ -43,16 +43,16 @@ class CarpetSerializer(serializers.ModelSerializer):
     length = LengthSerializer()
     
     
-    def to_representation(self, instance):
-        data = super().to_representation(instance)
-        if instance.shape.value == 'rectangle':
-            # حذف فیلد شعاع برای فرش‌های مستطیلی
-            data.pop('radius')
-        elif instance.shape.value == 'circle':
-            # حذف فیلد طول و عرض برای فرش‌های دایره‌ای
-            data.pop('length')
-            data.pop('width')
-        return data
+    # def to_representation(self, instance):
+    #     data = super().to_representation(instance)
+    #     if instance.shape.value == 'rectangle':
+    #         # حذف فیلد شعاع برای فرش‌های مستطیلی
+    #         data.pop('radius')
+    #     elif instance.shape.value == 'circle':
+    #         # حذف فیلد طول و عرض برای فرش‌های دایره‌ای
+    #         data.pop('length')
+    #         data.pop('width')
+    #     return data
 
     class Meta:
         model = Carpet

@@ -14,6 +14,9 @@ urlpatterns = [
     path('sections/chelleh/', views.WorkersBySectionView.as_view(), {'section_name': 'چله کشی'}, name='chaleh-workers'),
     path('sections/shirazeh/', views.WorkersBySectionView.as_view(), {'section_name': 'شیرازه'}, name='shiraze-workers'),
     path('sections/gereh/', views.WorkersBySectionView.as_view(), {'section_name': 'گره زن'}, name='shiraze-workers'),
+    path('workers/add/', views.WorkerDetailView.as_view(), name='add-worker'), 
+    path('workers/<int:pk>/update/', views.WorkerDetailView.as_view(), name='update-worker'),  
+    path('workers/<int:pk>/delete/', views.WorkerDetailView.as_view(), name='delete-worker'),
 
 
 
