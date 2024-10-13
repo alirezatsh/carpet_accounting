@@ -2,13 +2,13 @@ from django.db import models
 from django.contrib.auth.models import User
 
 class Section(models.Model):
-    name = models.CharField(max_length=100 , verbose_name='بخش ها')
+    value = models.CharField(max_length=100 , verbose_name='بخش ها')
     
     class Meta:
         verbose_name = 'بخش ها'
 
     def __str__(self):
-        return self.name
+        return self.value
     
     
 class Workers(models.Model):
@@ -42,9 +42,9 @@ class SectionUser(models.Model):
 
     def __str__(self):
         if self.user.last_name and self.user.name:
-            return f"{self.user.name} {self.user.last_name} - {self.section.name}"
+            return f"{self.user.name} {self.user.last_name} - {self.section.value}"
         
         elif self.user.last_name:
-            return f"{self.user.last_name} - {self.section.name}"
+            return f"{self.user.last_name} - {self.section.value}"
         
         return ""

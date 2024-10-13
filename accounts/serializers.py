@@ -143,34 +143,39 @@ class WorkerSerializer(serializers.ModelSerializer):
     def get_section(self, obj):
         section_user = SectionUser.objects.filter(user=obj).first()
         if section_user:
-            return section_user.section.name  
+            return section_user.section.value
         return None  
     
     
 class WorkerSectionSerializer(serializers.ModelSerializer):
-    section = serializers.PrimaryKeyRelatedField(queryset=Section.objects.all(), required=False)
+    section = serializers.PrimaryKeyRelatedField(queryset=Section.objects.all(), required=True)
 
     class Meta:
         model = Workers
         fields = ['id', 'name', 'last_name', 'section']
 
     def create(self, validated_data):
-        section = validated_data.pop('section', None)
+        # Validate section
+        section = validated_data.get('section')
+        if section is None:
+            raise serializers.ValidationError("Section ID must be provided.")
+        
+        # Create worker
         worker = Workers.objects.create(**validated_data)
-        if section:
-            worker.section = section
-            worker.save()  
         return worker
 
     def update(self, instance, validated_data):
-        section = validated_data.pop('section', None)
+        # Update fields
         instance.name = validated_data.get('name', instance.name)
         instance.last_name = validated_data.get('last_name', instance.last_name)
-        if section:
-            instance.section = section  
+
+        # Validate section
+        section = validated_data.get('section')
+        if section is not None:
+            instance.section = section
+        
         instance.save()
         return instance
-
 
 
 
