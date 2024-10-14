@@ -33,7 +33,7 @@ class SectionListView(generics.ListAPIView):
 class WorkersBySectionView(APIView):
     """This view is for listing workers in a specific section"""
     def get(self, request, section_name):
-        section = Section.objects.get(name=section_name)
+        section = Section.objects.get(value=section_name)
         section_users = SectionUser.objects.filter(section=section)
         workers = [section_user.user for section_user in section_users]
         serializer = WorkerSectionSerializer(workers, many=True)

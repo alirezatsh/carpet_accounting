@@ -68,7 +68,7 @@ class WorkerSerializer(serializers.ModelSerializer):
         # پیدا کردن بخش مرتبط با هر کارگر
         section_user = SectionUser.objects.filter(user=obj).first()
         if section_user:
-            return section_user.section.name  
+            return section_user.section.value 
         return None  
     
     
