@@ -66,6 +66,23 @@ class Radius(models.Model):
     def __str__(self):
         return str(self.value)
 
+
+class Year(models.Model):
+    value = models.IntegerField(unique=True, verbose_name='سال')
+    
+    
+    def __str__(self):
+        return str(self.id)
+    
+
+
+
+    class Meta:
+        verbose_name = 'سال‌ها'
+
+    def __str__(self):
+        return str(self.value)
+
 class Carpet(models.Model):
     rang = models.ForeignKey(Color, on_delete=models.CASCADE, verbose_name='رنگ')
     naghsheh = models.ForeignKey(Design, on_delete=models.CASCADE, verbose_name='طرح')
@@ -94,4 +111,13 @@ class Carpet(models.Model):
         verbose_name = 'فرش ها'
 
     def __str__(self):
-        return self.value
+        return str(self.id)
+
+
+
+
+
+class Month(models.Model):
+    year = models.ForeignKey(Year, on_delete=models.CASCADE, related_name='months')
+    value = models.IntegerField(choices=[(i, str(i)) for i in range(1, 13)], verbose_name='ماه')
+    carpets = models.ManyToManyField(Carpet , related_name='carpet_month' , blank=True  )

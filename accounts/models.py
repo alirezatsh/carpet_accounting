@@ -48,3 +48,17 @@ class SectionUser(models.Model):
             return f"{self.user.last_name} - {self.section.value}"
         
         return ""
+    
+    
+
+class Help(models.Model):
+    worker = models.ForeignKey(Workers , on_delete=models.CASCADE , verbose_name='نام کارمند')
+    money = models.IntegerField(verbose_name='مبلغ')
+    date = models.CharField(max_length=30 , verbose_name='تاریخ ')
+    
+    
+    def __str__(self):
+        return f'{self.worker} - {self.date}'
+    
+    class Meta:
+        verbose_name = 'مساعده'

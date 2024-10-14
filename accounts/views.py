@@ -1,11 +1,11 @@
 from rest_framework.response import Response
 from rest_framework import status, generics
 from rest_framework.views import APIView
-from .serializers import RegisterSerializer, UserSerializer, SectionSerializer, WorkerSerializer, WorkerSectionSerializer
+from .serializers import RegisterSerializer, UserSerializer, SectionSerializer, WorkerSerializer, WorkerSectionSerializer , HelpWorkerSerializer
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth.models import User
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
-from .models import Section, Workers, SectionUser
+from .models import Section, Workers, SectionUser , Help
 from rest_framework import viewsets
 
 class RegisterView(APIView):
@@ -46,6 +46,20 @@ class WorkerViewSet(viewsets.ModelViewSet):
     queryset = Workers.objects.all()
     serializer_class = WorkerSectionSerializer
     
+    
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        instance.delete()
+        return Response({"message": "کاربر با موفقیت حذف شد."}, status=status.HTTP_200_OK)
+    
+
+
+class HelpWorkerViewSet(viewsets.ModelViewSet):
+    """
+    ViewSet for viewing and editing workers helps money
+    """
+    queryset = Help.objects.all()
+    serializer_class = HelpWorkerSerializer
     
     def destroy(self, request, *args, **kwargs):
         instance = self.get_object()
