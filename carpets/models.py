@@ -74,7 +74,7 @@ class Carpet(models.Model):
     tool = models.ForeignKey(Length, null=True, blank=True, on_delete=models.SET_NULL, verbose_name='طول')
     arz = models.ForeignKey(Width, null=True, blank=True, on_delete=models.SET_NULL, verbose_name='عرض')
     isRectangle = models.BooleanField(default=True, verbose_name='مستطیل')
-    metraj = models.CharField(max_length=20 , blank=True , null=True , verbose_name='طول')
+    metraj = models.CharField(max_length=20 , blank=True , null=True , verbose_name='متراژ')
     serial = models.CharField(max_length=30, verbose_name='سریال' , default=1)
     code = models.CharField(max_length=30, verbose_name='کد' , null=True, blank=True)
     shirazeh = models.ForeignKey(Workers, on_delete=models.CASCADE, verbose_name='شیرازه', related_name='shirazeh_carpets', null=True, blank=True)
