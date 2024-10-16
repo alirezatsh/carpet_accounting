@@ -51,34 +51,42 @@ class WorkerSerializer(serializers.ModelSerializer):
     
     
 class WorkerSectionSerializer(serializers.ModelSerializer):
-    section = serializers.PrimaryKeyRelatedField(queryset=Section.objects.all(), required=True)
+    section_name = serializers.CharField(source='section.value', write_only=True) 
+    section = serializers.StringRelatedField(read_only=True)
 
     class Meta:
         model = Workers
-        fields = ['id', 'name', 'last_name', 'section']
+        fields = ['id', 'name', 'last_name', 'section', 'section_name']  
 
     def create(self, validated_data):
-        # Validate section
-        section = validated_data.get('section')
-        if section is None:
-            raise serializers.ValidationError("Section ID must be provided.")
+        section_name = validated_data.pop('section').get('value')
         
-        # Create worker
-        worker = Workers.objects.create(**validated_data)
+        try:
+            section = Section.objects.get(value=section_name)
+        except Section.DoesNotExist:
+            raise serializers.ValidationError(f"Section with name '{section_name}' does not exist.")
+        
+        # ایجاد کاربر جدید
+        worker = Workers.objects.create(section=section, **validated_data)
         return worker
 
     def update(self, instance, validated_data):
-        # Update fields
+        # به‌روزرسانی فیلدهای کاربر
         instance.name = validated_data.get('name', instance.name)
         instance.last_name = validated_data.get('last_name', instance.last_name)
 
-        # Validate section
-        section = validated_data.get('section')
-        if section is not None:
-            instance.section = section
+        # دریافت نام بخش و پیدا کردن بخش
+        section_name = validated_data.pop('section').get('value', None)
+        if section_name:
+            try:
+                section = Section.objects.get(value=section_name)
+                instance.section = section
+            except Section.DoesNotExist:
+                raise serializers.ValidationError(f"Section with name '{section_name}' does not exist.")
         
         instance.save()
         return instance
+
 
 
 class HelpWorkerSerializer(serializers.ModelSerializer):

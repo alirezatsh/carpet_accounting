@@ -40,7 +40,7 @@ class Shape(models.Model):
 
 
 class Length(models.Model):
-    value = models.DecimalField(max_digits=5, decimal_places=2, verbose_name='طول')
+    value = models.CharField(max_length=20 , blank=True , null=True , verbose_name='طول')
 
     class Meta:
         verbose_name = 'طول'
@@ -49,7 +49,7 @@ class Length(models.Model):
         return str(self.value)
 
 class Width(models.Model):
-    value = models.DecimalField(max_digits=5, decimal_places=2, verbose_name='عرض')
+    value = models.CharField(max_length=20 , blank=True , null=True , verbose_name='عرض')
 
     class Meta:
         verbose_name = 'عرض'
@@ -74,7 +74,7 @@ class Carpet(models.Model):
     tool = models.ForeignKey(Length, null=True, blank=True, on_delete=models.SET_NULL, verbose_name='طول')
     arz = models.ForeignKey(Width, null=True, blank=True, on_delete=models.SET_NULL, verbose_name='عرض')
     isRectangle = models.BooleanField(default=True, verbose_name='مستطیل')
-    metraj = models.DecimalField(max_digits=5, decimal_places=2, verbose_name='متراژ' , default=1)
+    metraj = models.CharField(max_length=20 , blank=True , null=True , verbose_name='طول')
     serial = models.CharField(max_length=30, verbose_name='سریال' , default=1)
     code = models.CharField(max_length=30, verbose_name='کد' , null=True, blank=True)
     shirazeh = models.ForeignKey(Workers, on_delete=models.CASCADE, verbose_name='شیرازه', related_name='shirazeh_carpets', null=True, blank=True)
