@@ -1,0 +1,42 @@
+[
+    {
+        "rang": 12,
+        "naghsheh": 1,
+        "tool": 13,
+        "arz": 10,
+        "isRectangle": true,
+        "metraj": "5m",
+        "serial": "12345",
+        "code": "C123",
+        "shirazeh": 10,
+        "cheleh": 10,
+        "gereh": 10,
+        "shirazehKhoroug": "K1",
+        "chelehKhoroug": "K2",
+        "grehKhoroug": "K3",
+        "shirazehVouroud": "V1",
+        "chellehVouroud": "V2",
+        "gerehVouroud": "V3",
+        "ersalshodeh": false
+    },
+    {
+        "rang": 10,
+        "naghsheh": 2,
+        "tool": 13,
+        "arz": 13,
+        "isRectangle": false,
+        "metraj": "10m",
+        "serial": "12346",
+        "code": "C124",
+        "shirazeh": 10,
+        "cheleh": 10,
+        "gereh": 10,
+        "shirazehKhoroug": "K4",
+        "chelehKhoroug": "K5",
+        "grehKhoroug": "K6",
+        "shirazehVouroud": "V4",
+        "chellehVouroud": "V5",
+        "gerehVouroud": "V6",
+        "ersalshodeh": true
+    }
+]

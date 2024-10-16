@@ -68,6 +68,7 @@ class Radius(models.Model):
 
 
 
+
 class Carpet(models.Model):
     rang = models.ForeignKey(Color, on_delete=models.CASCADE, verbose_name='رنگ')
     naghsheh = models.ForeignKey(Design, on_delete=models.CASCADE, verbose_name='طرح')
@@ -97,7 +98,6 @@ class Carpet(models.Model):
 
     def __str__(self):
         return str(self.id)
-
 
 
 
