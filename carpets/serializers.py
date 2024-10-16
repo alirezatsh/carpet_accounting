@@ -28,51 +28,24 @@ class WidthSerializer(serializers.ModelSerializer):
         fields = ['value']  
 
 class CarpetSerializer(serializers.ModelSerializer):
-    rang = serializers.CharField()
-    naghsheh = serializers.CharField()
-    tool = serializers.CharField()  # تغییر به CharField
-    arz = serializers.CharField()    # تغییر به CharField
-    shirazeh = serializers.PrimaryKeyRelatedField(queryset=Workers.objects.all())
-    cheleh = serializers.PrimaryKeyRelatedField(queryset=Workers.objects.all())
-    gereh = serializers.PrimaryKeyRelatedField(queryset=Workers.objects.all())
+    rang = serializers.CharField(required=False, allow_blank=True)  # رنگ می‌تواند خالی باشد
+    naghsheh = serializers.CharField(required=False, allow_blank=True)  # نقشه می‌تواند خالی باشد
+    tool = serializers.CharField(required=False, allow_blank=True)  # طول می‌تواند خالی باشد
+    arz = serializers.CharField(required=False, allow_blank=True)  # عرض می‌تواند خالی باشد
+    
+    shirazeh = serializers.CharField(required=False, allow_blank=True)
+    cheleh = serializers.CharField(required=False, allow_blank=True)
+    gereh = serializers.CharField(required=False, allow_blank=True)
 
     class Meta:
         model = Carpet
-        fields = '__all__'
+        fields = '__all__' 
 
     def create(self, validated_data):
-        rang_value = validated_data.pop('rang')
-        naghsheh_value = validated_data.pop('naghsheh')
-        tool_value = validated_data.pop('tool')
-        arz_value = validated_data.pop('arz')
+        return Carpet.objects.create(**validated_data)
 
-        # تلاش برای رنگ
-        rang_instance, created = Color.objects.get_or_create(value=rang_value)
-        validated_data['rang'] = rang_instance
-
-        # تلاش برای طرح
-        naghsheh_instance, created = Design.objects.get_or_create(value=naghsheh_value)
-        validated_data['naghsheh'] = naghsheh_instance
-
-        # تلاش برای طول
-        tool_instance, created = Length.objects.get_or_create(value=tool_value)
-        validated_data['tool'] = tool_instance
-
-        # تلاش برای عرض
-        arz_instance, created = Width.objects.get_or_create(value=arz_value)
-        validated_data['arz'] = arz_instance
-
-        carpet = Carpet.objects.create(**validated_data)
-        return carpet
-
-    def get_rang(self, obj):
-        return obj.rang.value if obj.rang else None
-
-    def get_naghsheh(self, obj):
-        return obj.naghsheh.value if obj.naghsheh else None
-    
-    def get_tool(self, obj):
-        return obj.tool.value if obj.tool else None
-
-    def get_arz(self, obj):
-        return obj.arz.value if obj.arz else None
+    def update(self, instance, validated_data):
+        for attr, value in validated_data.items():
+            setattr(instance, attr, value)
+        instance.save()
+        return instance
