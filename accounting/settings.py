@@ -166,3 +166,6 @@ CORS_ALLOW_HEADERS = [
     'content-type',
     'x-requested-with',
 ]
+
+
+CORS_ALLOW_ALL_ORIGINS = True

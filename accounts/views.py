@@ -15,12 +15,14 @@ class SectionListView(generics.ListAPIView):
     """This view returns all sections, only accessible by admin users"""
     queryset = Section.objects.all()
     serializer_class = SectionSerializer
-    # permission_classes = [IsAdminUser]
+    permission_classes = [IsAdminUser , IsAuthenticated]
 
 
 
 class WorkersBySectionView(APIView):
     """This view is for listing workers in a specific section"""
+    permission_classes = [IsAdminUser , IsAuthenticated]
+
     def get(self, request, section_name):
         section = Section.objects.get(value=section_name)
         section_users = SectionUser.objects.filter(section=section)
@@ -34,6 +36,8 @@ class WorkerViewSet(viewsets.ModelViewSet):
     """
     queryset = Workers.objects.all()
     serializer_class = WorkerSectionSerializer
+    permission_classes = [IsAdminUser , IsAuthenticated]
+
     
     
     def destroy(self, request, *args, **kwargs):
@@ -49,6 +53,8 @@ class HelpWorkerViewSet(viewsets.ModelViewSet):
     """
     queryset = Help.objects.all()
     serializer_class = HelpWorkerSerializer
+    permission_classes = [IsAdminUser , IsAuthenticated]
+
     
     def destroy(self, request, *args, **kwargs):
         instance = self.get_object()
