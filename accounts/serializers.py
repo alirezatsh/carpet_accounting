@@ -56,7 +56,7 @@ class WorkerSectionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Workers
-        fields = ['id', 'name', 'last_name', 'section', 'section_name']  
+        fields = ['id', 'name', 'last_name', 'section', 'section_name' , 'phone' , 'landline_phone' , 'address']  
 
     def create(self, validated_data):
         section_name = validated_data.pop('section').get('value')

@@ -7,6 +7,9 @@ from django.contrib.auth.models import User
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from .models import Section, Workers, SectionUser , Help
 from rest_framework import viewsets
+from rest_framework_simplejwt.exceptions import InvalidToken
+from rest_framework_simplejwt.authentication import JWTAuthentication
+
 
 
 
@@ -24,15 +27,12 @@ class WorkersBySectionView(APIView):
 
     def get(self, request, section_name):
         try:
-            # پیدا کردن بخش بر اساس نام آن
             section = Section.objects.get(value=section_name)
         except Section.DoesNotExist:
             return Response({"message": "بخش یافت نشد."}, status=status.HTTP_404_NOT_FOUND)
         
-        # فیلتر کردن کارمندان بر اساس بخش
         workers = Workers.objects.filter(section=section)
 
-        # سریالیز کردن کارمندان
         serializer = WorkerSectionSerializer(workers, many=True)
         
         return Response(serializer.data)
@@ -67,4 +67,23 @@ class HelpWorkerViewSet(viewsets.ModelViewSet):
         instance = self.get_object()
         instance.delete()
         return Response({"message": "کاربر با موفقیت حذف شد."}, status=status.HTTP_200_OK)
+    
+    
+    
+class TokenVerifyView(APIView):
+    # permission_classes = [IsAuthenticated]
+    """
+    this view is for verifying the tokens
+    """
+    def post(self, request, *args, **kwargs):
+        auth = JWTAuthentication()
+
+        try:
+            token = request.headers.get('Authorization').split(' ')[1]
+            
+            auth.get_validated_token(token)
+
+            return Response({"message": "توکن معتبر است"}, status=status.HTTP_200_OK)
+        except (InvalidToken, AttributeError):
+            return Response({"message": "توکن معتبر نیست یا کاربر موجود نیست"}, status=status.HTTP_401_UNAUTHORIZED)
 

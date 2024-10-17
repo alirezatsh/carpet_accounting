@@ -15,6 +15,9 @@ class Workers(models.Model):
     name = models.CharField(max_length=30 , null=True , blank=True , verbose_name='نام')
     last_name = models.CharField(max_length=40 ,blank=True, null=True , verbose_name='نام خانوادگی')
     section = models.ForeignKey(Section, on_delete=models.CASCADE , related_name='workers' , blank=True , null=True , verbose_name='بخش')
+    phone = models.CharField(max_length=11 , blank=True , null=True , verbose_name='تلفن')
+    landline_phone = models.CharField(max_length=20 , blank=True , null=True , verbose_name='تلفن ثابت')
+    address = models.TextField(blank=True , null=True , verbose_name='آدرس')
     
     class Meta:
         verbose_name = 'کارمندان'

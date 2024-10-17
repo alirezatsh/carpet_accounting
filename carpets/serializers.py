@@ -28,11 +28,10 @@ class WidthSerializer(serializers.ModelSerializer):
         fields = ['value']  
 
 class CarpetSerializer(serializers.ModelSerializer):
-    rang = serializers.CharField(required=False, allow_blank=True)  # رنگ می‌تواند خالی باشد
-    naghsheh = serializers.CharField(required=False, allow_blank=True)  # نقشه می‌تواند خالی باشد
-    tool = serializers.CharField(required=False, allow_blank=True)  # طول می‌تواند خالی باشد
-    arz = serializers.CharField(required=False, allow_blank=True)  # عرض می‌تواند خالی باشد
-    
+    rang = serializers.CharField(required=False, allow_blank=True) 
+    naghsheh = serializers.CharField(required=False, allow_blank=True)
+    tool = serializers.CharField(required=False, allow_blank=True)
+    arz = serializers.CharField(required=False, allow_blank=True)  
     shirazeh = serializers.CharField(required=False, allow_blank=True)
     cheleh = serializers.CharField(required=False, allow_blank=True)
     gereh = serializers.CharField(required=False, allow_blank=True)
