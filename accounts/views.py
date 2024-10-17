@@ -1,12 +1,10 @@
 from rest_framework.response import Response
-from rest_framework import status, generics
+from rest_framework import status, generics , viewsets
 from rest_framework.views import APIView
 from .serializers import  UserSerializer, SectionSerializer, WorkerSerializer, WorkerSectionSerializer , HelpWorkerSerializer
-from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth.models import User
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from .models import Section, Workers, SectionUser , Help
-from rest_framework import viewsets
 from rest_framework_simplejwt.exceptions import InvalidToken
 from rest_framework_simplejwt.authentication import JWTAuthentication
 
@@ -71,18 +69,17 @@ class HelpWorkerViewSet(viewsets.ModelViewSet):
     
     
 class TokenVerifyView(APIView):
+    """
+    this view is for verifying the tokens using GET request
+    """
     # permission_classes = [IsAuthenticated]
-    """
-    this view is for verifying the tokens
-    """
-    def post(self, request, *args, **kwargs):
+
+    def get(self, request, *args, **kwargs):
         auth = JWTAuthentication()
 
         try:
             token = request.headers.get('Authorization').split(' ')[1]
-            
             auth.get_validated_token(token)
-
             return Response({"message": "توکن معتبر است"}, status=status.HTTP_200_OK)
         except (InvalidToken, AttributeError):
             return Response({"message": "توکن معتبر نیست یا کاربر موجود نیست"}, status=status.HTTP_401_UNAUTHORIZED)

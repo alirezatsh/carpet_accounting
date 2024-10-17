@@ -1,6 +1,6 @@
 import json
 from django.core.management.base import BaseCommand
-from carpets.models import Carpet, Color, Design, Length, Width 
+from carpets.models import Carpet
 from accounts.models import Workers
 
 class Command(BaseCommand):
@@ -21,24 +21,24 @@ class Command(BaseCommand):
                     try:
                         # ایجاد فرش جدید
                         Carpet.objects.create(
-                            rang=Color.objects.get(id=carpet['rang']),
-                            naghsheh=Design.objects.get(id=carpet['naghsheh']),
-                            tool=Length.objects.get(id=carpet['tool']),
-                            arz=Width.objects.get(id=carpet['arz']),
-                            isRectangle=carpet['isRectangle'],
-                            metraj=carpet['metraj'],
-                            serial=carpet['serial'],
-                            code=carpet['code'],
-                            shirazeh=Workers.objects.get(id=carpet['shirazeh']),
-                            cheleh=Workers.objects.get(id=carpet['cheleh']),
-                            gereh=Workers.objects.get(id=carpet['gereh']),
-                            shirazehKhoroug=carpet['shirazehKhoroug'],
-                            chelehKhoroug=carpet['chelehKhoroug'],
-                            grehKhoroug=carpet['grehKhoroug'],
-                            shirazehVouroud=carpet['shirazehVouroud'],
-                            chellehVouroud=carpet['chellehVouroud'],
-                            gerehVouroud=carpet['gerehVouroud'],
-                            ersalshodeh=carpet['ersalshodeh']
+                            rang=carpet['rang'],  # رشته
+                            naghsheh=carpet['naghsheh'],  # رشته
+                            tool=carpet['tool'],  # رشته
+                            arz=carpet['arz'],  # رشته
+                            isRectangle=carpet['isRectangle'],  # بولین
+                            metraj=carpet['metraj'],  # رشته
+                            serial=carpet['serial'],  # رشته
+                            code=carpet['code'],  # رشته
+                            shirazeh=carpet['shirazeh'],  # رشته
+                            cheleh=carpet['cheleh'],  # رشته
+                            gereh=carpet['gereh'],  # رشته
+                            shirazehKhoroug=carpet['shirazehKhoroug'],  # رشته (تاریخ یا استرینگ)
+                            chelehKhoroug=carpet.get('chelehKhoroug', ''),  # رشته
+                            grehKhoroug=carpet['gerehKhoroug'],  # رشته
+                            shirazehVouroud=carpet['shirazehVouroud'],  # رشته
+                            chellehVouroud=carpet.get('chellehVouroud', ''),  # رشته
+                            gerehVouroud=carpet['gerehVouroud'],  # رشته
+                            ersalshodeh=carpet['ersalshodeh']  # بولین
                         )
                         self.stdout.write(self.style.SUCCESS(f'Successfully added carpet {carpet["serial"]}'))
                     except Exception as e:
