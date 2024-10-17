@@ -66,16 +66,16 @@ class WorkerSectionSerializer(serializers.ModelSerializer):
         except Section.DoesNotExist:
             raise serializers.ValidationError(f"Section with name '{section_name}' does not exist.")
         
-        # ایجاد کاربر جدید
         worker = Workers.objects.create(section=section, **validated_data)
         return worker
 
     def update(self, instance, validated_data):
-        # به‌روزرسانی فیلدهای کاربر
         instance.name = validated_data.get('name', instance.name)
         instance.last_name = validated_data.get('last_name', instance.last_name)
+        instance.phone = validated_data.get('phone', instance.phone)
+        instance.landline_phone = validated_data.get('landline_phone' , instance.landline_phone)
+        instance.address = validated_data.get('address' , instance.address)
 
-        # دریافت نام بخش و پیدا کردن بخش
         section_name = validated_data.pop('section').get('value', None)
         if section_name:
             try:
