@@ -16,7 +16,7 @@ class SectionListView(generics.ListAPIView):
     """This view returns all sections, only accessible by admin users"""
     queryset = Section.objects.all()
     serializer_class = SectionSerializer
-    # permission_classes = [IsAdminUser , IsAuthenticated]
+    permission_classes = [IsAdminUser , IsAuthenticated]
 
 
 
@@ -41,7 +41,7 @@ class WorkerViewSet(viewsets.ModelViewSet):
     """
     queryset = Workers.objects.all()
     serializer_class = WorkerSectionSerializer
-    # permission_classes = [IsAdminUser , IsAuthenticated]
+    permission_classes = [IsAdminUser , IsAuthenticated]
 
     
     
@@ -58,7 +58,7 @@ class HelpWorkerViewSet(viewsets.ModelViewSet):
     """
     queryset = Help.objects.all()
     serializer_class = HelpWorkerSerializer
-    # permission_classes = [IsAdminUser , IsAuthenticated]
+    permission_classes = [IsAdminUser , IsAuthenticated]
 
     
     def destroy(self, request, *args, **kwargs):
@@ -72,7 +72,7 @@ class TokenVerifyView(APIView):
     """
     this view is for verifying the tokens using GET request
     """
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
 
     def get(self, request, *args, **kwargs):
         auth = JWTAuthentication()
