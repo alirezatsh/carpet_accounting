@@ -75,8 +75,8 @@ class WorkerSectionSerializer(serializers.ModelSerializer):
         instance.phone = validated_data.get('phone', instance.phone)
         instance.landline_phone = validated_data.get('landline_phone' , instance.landline_phone)
         instance.address = validated_data.get('address' , instance.address)
-
         section_name = validated_data.pop('section').get('value', None)
+        
         if section_name:
             try:
                 section = Section.objects.get(value=section_name)

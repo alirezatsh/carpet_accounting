@@ -1,5 +1,6 @@
 asgiref==3.8.1
 attrs==24.2.0
+chardet==5.2.0
 Django==5.1.2
 django-cors-headers==4.4.0
 djangorestframework==3.15.2
@@ -8,9 +9,11 @@ drf-spectacular==0.27.2
 inflection==0.5.1
 jsonschema==4.23.0
 jsonschema-specifications==2024.10.1
+pillow==11.0.0
 PyJWT==2.9.0
 PyYAML==6.0.2
 referencing==0.35.1
+reportlab==4.2.5
 rpds-py==0.20.0
 sqlparse==0.5.1
 tzdata==2024.2
