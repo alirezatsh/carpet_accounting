@@ -162,6 +162,7 @@ SIMPLE_JWT = {
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:8000",
     "http://localhost:3000", 
+    "https://carpet-accounting.liara.run"
 
 ]
 
