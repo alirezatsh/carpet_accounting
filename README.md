@@ -14,6 +14,11 @@ The **Accounting API** is a backend project developed with **Django Rest Framewo
 - **Authentication**:
   - Login functionality using JWT for secure access.
 
+- **Custom Management Command**:
+  - Import bulk carpet data into the database from JSON files using a custom management command.
+  - python manage.py import_carpet_data --file jsonfilename.json
+
+
 ## Tech Stack
 
 - **Backend Framework**: Django 4.x, Django Rest Framework (DRF)
@@ -24,7 +29,7 @@ The **Accounting API** is a backend project developed with **Django Rest Framewo
 
 ### Prerequisites
 - Python 3.8 or above
-- Virtual environment manager (e.g., `venv` or `pipenv`)
+- Virtual environment manager (e.g., venv or pipenv)
 
 ### Steps
 
